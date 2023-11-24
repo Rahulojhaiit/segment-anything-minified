@@ -25,7 +25,11 @@ Copy the required model into the Docker image as specified in the Dockerfile.
 
 3. To run the Docker container and process an image, use the following command format:
 
-`docker run -v "$(pwd)/{image_folder_name}:/app/data" segment-anything ./run_segmentation.sh {model_path} {model_name} {image_name} {device}`
+If The host has CUDA support and NVIDIA drivers and toolkit installed:
+`docker run --gpus all -v "$(pwd)/{image_folder_name}:/app/data" segment-anything ./run_segmentation.sh {model_path} {model_name} {image_name}`
+
+If the device is CPU:
+`docker run -v "$(pwd)/{image_folder_name}:/app/data" segment-anything ./run_segmentation.sh {model_path} {model_name} {image_name} cpu`
 
 Where:
 
@@ -33,14 +37,17 @@ Where:
 - `{model_path}` is the path to the model file being used (e.g. 'sam_vit_b.pth').
 - `{model_name}` is the name of the model (e.g. 'vit_b').
 - `{image_name}` is the filename of the image inside the `{image_folder_name}` on which the model will perform segmentation.(e.g. 'dogs.jpg')
-- `{device}` is the optional device parameter, and empty parameter sets default to 'cuda', value 'cpu' can be used where CUDA is not available.
 
-Here's an example command (I am using `cpu` because my host machine, apple M1 doesn't support CUDA.):
+Here's an example command
+
+for gpu:
+
+```
+docker run --gpus all -v "$(pwd)/foo:/app/data" segment-anything ./run_segmentation.sh sam_vit_b.pth vit_b dogs.jpg
+```
+
+for cpu:
 
 ```
 docker run -v "$(pwd)/foo:/app/data" segment-anything ./run_segmentation.sh sam_vit_b.pth vit_b dogs.jpg cpu
 ```
-
-- I have tested the script against base model, sam_vit_b.pth resulting in output generation in around 3 minutes,(the other large and huge models were crashing my system due to memory limitations of my host machine)
-
-- The docker image size for base model is 1.51 GB
