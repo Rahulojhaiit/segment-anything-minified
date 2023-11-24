@@ -1,5 +1,5 @@
 #!/bin/bash
-# $1: Model name e.g. (sam_vit_b.pth), $2: Model type, $3: Image filename
+# $1: Model name e.g. (sam_vit_b.pth), $2: Model type, $3: Image filename $4: Device Arg
 DEVICE_ARG=""
 if [ ! -z "$4" ]; then
     DEVICE_ARG="--device $4"
