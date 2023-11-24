@@ -19,10 +19,12 @@ Copy the required model into the Docker image as specified in the Dockerfile.
    docker build -t segment-anything .
 ```
 
-3. Run the model using the Docker container. Here's an example command (I am using `--device cpu` as apple M1 doesn't support CUDA.):
+3. Run the model using the Docker container by running the run_segmentation script. Here's an example command (I am using `--device cpu` in the script.sh file as apple M1 doesn't support CUDA.):
 
 ```
-docker run -v "$(pwd)/foo:/app/data" segment-anything python scripts/amg.py --checkpoint /app/sam_vit_b.pth --model-type vit_b --input /app/data/dogs.jpg --output /app/data --device cpu
+docker run -v "$(pwd)/foo:/app/data" segment-anything ./run_segmentation.sh sam_vit_b.pth vit_b dogs.jpg
 ```
+
+foo is the source folder for the images. dogs.jpg is an image inside the 'foo' folder
 
 The name of the model checkpoint and path can be changed as needed. I have tested the script against base model on my system (the other large and huge models were crashing my system due to memory limitations of my host machine)
