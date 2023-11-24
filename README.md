@@ -19,12 +19,21 @@ Copy the required model into the Docker image as specified in the Dockerfile.
    docker build -t segment-anything .
 ```
 
-3. Run the model using the Docker container by running the run_segmentation script. Here's an example command (I am using `--device cpu` in the script.sh file as apple M1 doesn't support CUDA.):
+3. To run the Docker container and process an image, use the following command format:
+
+docker run -v "$(pwd)/{image_folder_name}:/app/data" segment-anything ./run_segmentation.sh {model_path} {model_name} {image_name}
+
+Where:
+
+- `{image_folder_name}` is the name of the folder in your current working directory containing the images (e.g. 'foo').
+- `{model_path}` is the path to the model file being used (e.g. 'sam_vit_b.pth').
+- `{model_name}` is the name of the model (e.g. 'vit_b').
+- `{image_name}` is the filename of the image inside the `{image_folder_name}` on which the model will perform segmentation.(e.g. 'dogs.jpg')
+
+Here's an example command (I am using `--device cpu` flag in the run_segmentation.sh file as apple M1 doesn't support CUDA.):
 
 ```
 docker run -v "$(pwd)/foo:/app/data" segment-anything ./run_segmentation.sh sam_vit_b.pth vit_b dogs.jpg
 ```
-
-foo is the source folder for the images. dogs.jpg is an image inside the 'foo' folder
 
 The name of the model checkpoint and path can be changed as needed. I have tested the script against base model on my system (the other large and huge models were crashing my system due to memory limitations of my host machine)
