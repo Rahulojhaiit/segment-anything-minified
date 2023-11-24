@@ -21,7 +21,7 @@ Copy the required model into the Docker image as specified in the Dockerfile.
 
 3. To run the Docker container and process an image, use the following command format:
 
-docker run -v "$(pwd)/{image_folder_name}:/app/data" segment-anything ./run_segmentation.sh {model_path} {model_name} {image_name}
+docker run -v "$(pwd)/{image_folder_name}:/app/data" segment-anything ./run_segmentation.sh {model_path} {model_name} {image_name} {device}
 
 Where:
 
@@ -29,11 +29,12 @@ Where:
 - `{model_path}` is the path to the model file being used (e.g. 'sam_vit_b.pth').
 - `{model_name}` is the name of the model (e.g. 'vit_b').
 - `{image_name}` is the filename of the image inside the `{image_folder_name}` on which the model will perform segmentation.(e.g. 'dogs.jpg')
+- `{device}` is the optional device parameter, and empty parameter sets default to 'cuda', value 'cpu' can be used where CUDA is not available.
 
-Here's an example command (I am using `--device cpu` flag in the run_segmentation.sh file as apple M1 doesn't support CUDA.):
+Here's an example command (I am using `--device cpu` flag because apple M1 doesn't support CUDA.):
 
 ```
-docker run -v "$(pwd)/foo:/app/data" segment-anything ./run_segmentation.sh sam_vit_b.pth vit_b dogs.jpg
+docker run -v "$(pwd)/foo:/app/data" segment-anything ./run_segmentation.sh sam_vit_b.pth vit_b dogs.jpg cpu
 ```
 
-The name of the model checkpoint and path can be changed as needed. I have tested the script against base model on my system (the other large and huge models were crashing my system due to memory limitations of my host machine)
+The name of the model checkpoint and path can be changed as needed. I have tested the script against base model, sam_vit_b.pth (the other large and huge models were crashing my system due to memory limitations of my host machine)
