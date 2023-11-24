@@ -31,10 +31,11 @@ Where:
 - `{image_name}` is the filename of the image inside the `{image_folder_name}` on which the model will perform segmentation.(e.g. 'dogs.jpg')
 - `{device}` is the optional device parameter, and empty parameter sets default to 'cuda', value 'cpu' can be used where CUDA is not available.
 
-Here's an example command (I am using `--device cpu` flag because apple M1 doesn't support CUDA.):
+Here's an example command (I am using `cpu` because my host machine, apple M1 doesn't support CUDA.):
 
 ```
 docker run -v "$(pwd)/foo:/app/data" segment-anything ./run_segmentation.sh sam_vit_b.pth vit_b dogs.jpg cpu
 ```
 
-The name of the model checkpoint and path can be changed as needed. I have tested the script against base model, sam_vit_b.pth (the other large and huge models were crashing my system due to memory limitations of my host machine)
+The name of the model checkpoint and path can be changed as needed. I have tested the script against base model, sam_vit_b.pth resulting in output generation in around 3 minutes,(the other large and huge models were crashing my system due to memory limitations of my host machine)
+The docker image size for base model is 1.51 GB

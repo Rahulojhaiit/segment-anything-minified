@@ -7,7 +7,7 @@ COPY scripts/ scripts/
 COPY setup.py run_segmentation.sh ./
 RUN chmod +x run_segmentation.sh
 
-# COPY WHICHEVER MODEL THERE IS TO BE USED IN THE DOCKER
+# COPY WHICHEVER MODEL THERE IS TO BE USED IN THE DOCKER IMAGE
 
 COPY sam_vit_b.pth .
 # COPY sam_vit_l.pth .
@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir .[all] torch torchvision
+RUN pip install --no-cache-dir .[all]  torch torchvision
 
 
 
