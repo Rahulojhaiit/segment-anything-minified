@@ -5,7 +5,7 @@
 # LICENSE file in the root directory of this source tree.
 
 import cv2  # type: ignore
-
+import shutil
 from segment_anything import SamAutomaticMaskGenerator, sam_model_registry
 
 import argparse
@@ -224,6 +224,8 @@ def main(args: argparse.Namespace) -> None:
         base = os.path.splitext(base)[0]
         save_base = os.path.join(args.output, base)
         if output_mode == "binary_mask":
+            if os.path.exists(save_base):
+                shutil.rmtree(save_base)
             os.makedirs(save_base, exist_ok=False)
             write_masks_to_folder(masks, save_base)
         else:

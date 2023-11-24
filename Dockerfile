@@ -3,9 +3,8 @@ FROM python:3.8-slim
 WORKDIR /app
 
 COPY segment_anything/ segment_anything/
-COPY setup.py .
 COPY scripts/ scripts/
-COPY run_segmentation.sh .
+COPY setup.py run_segmentation.sh ./
 RUN chmod +x run_segmentation.sh
 
 # COPY WHICHEVER MODEL THERE IS TO BE USED IN THE DOCKER
@@ -19,8 +18,8 @@ RUN apt-get update && apt-get install -y \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir .[all]
-RUN pip install torch torchvision
+RUN pip install --no-cache-dir .[all] torch torchvision
+
 
 
 
