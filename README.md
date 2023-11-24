@@ -8,6 +8,8 @@ Before using the model, download and rename the model checkpoints. Place them in
 - For the ViT-L model: `sam_vit_l.pth` - [Download here](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_l_0b3195.pth)
 - For the ViT-B model: `sam_vit_b.pth` - [Download here](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth)
 
+Something like this ![Model naming convention for this project](files.png)
+
 Copy the required model into the Docker image as specified in the Dockerfile.
 
 ## Running the Docker Container
@@ -21,7 +23,7 @@ Copy the required model into the Docker image as specified in the Dockerfile.
 
 3. To run the Docker container and process an image, use the following command format:
 
-docker run -v "$(pwd)/{image_folder_name}:/app/data" segment-anything ./run_segmentation.sh {model_path} {model_name} {image_name} {device}
+`docker run -v "$(pwd)/{image_folder_name}:/app/data" segment-anything ./run_segmentation.sh {model_path} {model_name} {image_name} {device}`
 
 Where:
 
