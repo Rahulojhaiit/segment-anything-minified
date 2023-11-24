@@ -26,9 +26,11 @@ Copy the required model into the Docker image as specified in the Dockerfile.
 3. To run the Docker container and process an image, use the following command format:
 
 If The host has CUDA support and NVIDIA drivers and toolkit installed:
+
 `docker run --gpus all -v "$(pwd)/{image_folder_name}:/app/data" segment-anything ./run_segmentation.sh {model_path} {model_name} {image_name}`
 
 If the device is CPU:
+
 `docker run -v "$(pwd)/{image_folder_name}:/app/data" segment-anything ./run_segmentation.sh {model_path} {model_name} {image_name} cpu`
 
 Where:
