@@ -23,7 +23,7 @@ Copy the required model into the Docker image as specified in the Dockerfile.
    docker build -t segment-anything .
 ```
 
-3. To run the Docker container and process an image, use the following command format:
+3. To run the Docker container and segment an image, use the following command format:
 
 If The host has CUDA support and NVIDIA drivers and toolkit installed:
 
@@ -53,3 +53,27 @@ for cpu:
 ```
 docker run -v "$(pwd)/foo:/app/data" segment-anything ./run_segmentation.sh sam_vit_b.pth vit_b dogs.jpg cpu
 ```
+
+In these examples, I have used docker volume to use 'foo' folder to be mounted inside the container as well. Any changes made by container to the folder will be reflected to the host as well.
+
+Docker Image Size with all dependency and model checkpoints:
+
+- with sam_vit_b model = 1.51 GB
+- with sam_vit_l model = 2.39 GB
+- with sam_vit_h model = 3.7 GB
+
+I have used `python:3.8-slim` as the base image to keep the size small and only install the dependency for the model.
+
+## (Optional) Building Image without model checkpoints
+
+If we want to reduce the image size even further, we can build the image without model checkpoints and then use docker volume mounting to access the model checkpoint files (sam_vit_b.pth/sam_vit_l.pth etc) directly from the host.
+
+A sample command for that:
+
+```
+docker run -v "$(pwd):/app/models" -v "$(pwd)/foo:/app/data" segment-anything ./run_segmentation.sh /models/sam_vit_l.pth vit_l dogs.jpg cpu
+```
+
+In this case, Docker Image Size with all dependency:
+
+- WITHOUT model checkpoints = 1.14 GB
