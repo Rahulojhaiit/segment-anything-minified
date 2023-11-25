@@ -36,8 +36,8 @@ If the device is CPU:
 Where:
 
 - `{image_folder_name}` is the name of the folder in your current working directory containing the images (e.g. 'foo').
-- `{model_path}` is the path to the model file being used (e.g. 'sam_vit_b.pth').
-- `{model_name}` is the name of the model (e.g. 'vit_b').
+- `{model_path}` is the path to the model file being used (e.g. 'sam_vit_b.pth','sam_vit_h.pth','sam_vit_l.pth').
+- `{model_name}` is the name of the model (e.g. 'vit_b','vit_h','vit_l').
 - `{image_name}` is the filename of the image inside the `{image_folder_name}` on which the model will perform segmentation.(e.g. 'dogs.jpg')
 
 Here's an example command
@@ -54,7 +54,7 @@ for cpu:
 docker run -v "$(pwd)/foo:/app/data" segment-anything ./run_segmentation.sh sam_vit_b.pth vit_b dogs.jpg cpu
 ```
 
-In these examples, I have used docker volume to use 'foo' folder to be mounted inside the container as well. Any changes made by container to the folder will be reflected to the host as well.
+In these examples, I have used docker volume to use 'foo' folder to be mounted inside the container. Any changes made by container to the folder will be reflected to the host as well.
 
 Docker Image Size with all dependency and model checkpoints:
 
